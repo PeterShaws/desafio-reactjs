@@ -18,17 +18,34 @@ export const Container = styled.div<ContainerProps>`
 
     nav {
       a {
+        position: relative;
         color: #fff;
         text-decoration: none;
         font-size: 16px;
-        transition: opacity 0.2s;
+        text-transform: lowercase;
 
         & + a {
           margin-left: 32px;
         }
 
-        &:hover {
+        &:hover span {
           opacity: 0.6;
+        }
+
+        &.active::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: -4px;
+          display: block;
+          width: calc(100% + 8px);
+          height: 4px;
+          background-color: #ff872c;
+          border-radius: 2px;
+        }
+
+        span {
+          transition: opacity 0.2s;
         }
       }
     }
