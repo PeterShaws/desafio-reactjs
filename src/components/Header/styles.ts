@@ -22,7 +22,6 @@ export const Container = styled.div<ContainerProps>`
         color: #fff;
         text-decoration: none;
         font-size: 16px;
-        text-transform: lowercase;
 
         & + a {
           margin-left: 32px;
@@ -35,13 +34,11 @@ export const Container = styled.div<ContainerProps>`
         &.active::after {
           content: '';
           position: absolute;
-          bottom: -4px;
-          left: -4px;
+          bottom: -10px;
           display: block;
-          width: calc(100% + 8px);
-          height: 4px;
+          width: 100%;
+          height: 2px;
           background-color: #ff872c;
-          border-radius: 2px;
         }
 
         span {

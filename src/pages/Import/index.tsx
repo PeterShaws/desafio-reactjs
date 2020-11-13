@@ -23,19 +23,34 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
-
-    // TODO
+    const data = new FormData();
+    data.append('file', uploadedFiles[0].file as Blob);
 
     try {
-      // await api.post('/transactions/import', data);
+      const response = await api.post<{ transactions: [] }>(
+        '/transactions/import',
+        data,
+      );
+      if (Array.isArray(response.data.transactions)) {
+        history.goBack();
+      } else {
+        throw new Error(
+          `unexpected response data: ${JSON.stringify(response.data)}`,
+        );
+      }
     } catch (err) {
-      // console.log(err.response.error);
+      // eslint-disable-next-line no-console
+      console.error(err.response?.error || err.message);
     }
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    const fileProps: FileProps[] = files.map(file => ({
+      file,
+      name: file.name,
+      readableSize: filesize(file.size),
+    }));
+    setUploadedFiles(fileProps);
   }
 
   return (
@@ -52,7 +67,11 @@ const Import: React.FC = () => {
               <img src={alert} alt="Alert" />
               Permitido apenas arquivos CSV
             </p>
-            <button onClick={handleUpload} type="button">
+            <button
+              onClick={handleUpload}
+              type="button"
+              disabled={!uploadedFiles.length}
+            >
               Enviar
             </button>
           </Footer>
