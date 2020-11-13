@@ -34,7 +34,7 @@ export const Container = styled.div<ContainerProps>`
         &.active::after {
           content: '';
           position: absolute;
-          bottom: -10px;
+          bottom: -12px;
           display: block;
           width: 100%;
           height: 2px;
